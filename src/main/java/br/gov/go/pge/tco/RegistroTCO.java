@@ -1,5 +1,6 @@
 package br.gov.go.pge.tco;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +28,6 @@ public class RegistroTCO {
     private String nomeMae;
     private String sexo;
     private Endereco endereco;
-    private String telefone;
-    private String email;
     private CarteiraOAB oab;
     
     public static final List<RegistroTCO> LISTA_VAZIA_REGISTROS_TCO = new ArrayList<>(0);
@@ -138,22 +137,6 @@ public class RegistroTCO {
     
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
-    }
-    
-    public String getEmail() {
-        return email;
-    }
-    
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    
-    public String getTelefone() {
-        return telefone;
-    }
-    
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
     }
     
     public CarteiraOAB getOab() {
@@ -272,24 +255,6 @@ public class RegistroTCO {
         return this;
     }
     
-    public String email() {
-        return getEmail();
-    }
-    
-    public RegistroTCO email(String email) {
-        setEmail(email);
-        return this;
-    }
-    
-    public String telefone() {
-        return getTelefone();
-    }
-    
-    public RegistroTCO telefone(String telefone) {
-        setTelefone(telefone);
-        return this;
-    }
-    
     public CarteiraOAB oab() {
         return getOab();
     }
@@ -301,43 +266,54 @@ public class RegistroTCO {
     
     public void preencherAgrupamento1(String linha) {
         String[] colunas = RegistroTCO.obterColunasAgrupamento1(linha);
-        this.setCodigoAgrupamento1(colunas[0]);
-        this.setIdReceitaFederal(colunas[1]);
-        this.setNome(colunas[2]);
-        this.getRg().setNumero(colunas[3]);
-        this.getRg().setOrgaoExpedidor(colunas[4]);
-        this.getRg().setUf(colunas[5]);
-        this.setDataNascimento(colunas[6]);
-        this.getCtps().setNumero(colunas[7]);
-        this.getCtps().setUf(colunas[8]);
-        this.getCtps().setSerie(colunas[9]);
-        this.getCtps().setPis(colunas[10]);
-        this.setNumeroTituloEleitor(colunas[11]);
-        this.setNomeMae(colunas[12]);
-        this.setSexo(colunas[13]);
+        if (colunas != null && colunas.length >= 14) {
+            this.setCodigoAgrupamento1(colunas[0]);
+            this.setIdReceitaFederal(colunas[1]);
+            this.setNome(colunas[2]);
+            this.getRg().setNumero(colunas[3]);
+            this.getRg().setOrgaoExpedidor(colunas[4]);
+            this.getRg().setUf(colunas[5]);
+            this.setDataNascimento(colunas[6]);
+            this.getCtps().setNumero(colunas[7]);
+            this.getCtps().setUf(colunas[8]);
+            this.getCtps().setSerie(colunas[9]);
+            this.getCtps().setPis(colunas[10]);
+            this.setNumeroTituloEleitor(colunas[11]);
+            this.setNomeMae(colunas[12]);
+            this.setSexo(colunas[13]);
+        }
     }
     
     public void preencherAgrupamento2(String linha) {
         String[] colunas = RegistroTCO.obterColunasAgrupamento2(linha);
-        this.codigoAgrupamento2(colunas[0]);
-        this.endereco().logradouro(colunas[1]);
-        this.endereco().numero(colunas[2]);
-        this.endereco().complemento(colunas[3]);
-        this.endereco().bairro(colunas[4]);
-        this.telefone(colunas[5]);
-        this.endereco().codigoCidade(colunas[6]);
-        this.endereco().descricaoCidade(colunas[7]);
-        this.endereco().uf(colunas[8]);
-        this.endereco().cep(colunas[9]);
-        this.email(colunas[10]);
+        if (colunas != null && colunas.length >= 8) {
+            this.codigoAgrupamento2(colunas[0]);
+            this.endereco().logradouro(colunas[1]);
+            this.endereco().numero(colunas[2]);
+            this.endereco().complemento(colunas[3]);
+            this.endereco().bairro(colunas[4]);
+            this.endereco().telefone(colunas[5]);
+            if (colunas.length >= 11) {
+                this.endereco().codigoCidade(colunas[6]);
+                this.endereco().descricaoCidade(colunas[7]);
+                this.endereco().uf(colunas[8]);
+                this.endereco().cep(colunas[9]);
+                this.endereco().email(colunas[10]);
+            } else {
+                this.endereco().cep(colunas[6]);
+                this.endereco().email(colunas[7]);
+            }
+        }
     }
     
     public void preencherAgrupamento3(String linha) {
         String[] colunas = RegistroTCO.obterColunasAgrupamento3(linha);
-        this.codigoAgrupamento3(colunas[0]);
-        this.oab().numero(colunas[1]);
-        this.oab().uf(colunas[2]);
-        this.oab().complemento(colunas[3]);
+        if (colunas != null && colunas.length >= 4) {
+            this.codigoAgrupamento3(colunas[0]);
+            this.oab().numero(colunas[1]);
+            this.oab().uf(colunas[2]);
+            this.oab().complemento(colunas[3]);
+        }
     }
     
     /**
@@ -370,40 +346,57 @@ public class RegistroTCO {
         // array com 14 posições a ser retornado.
         String[] colunasAgrupamento1 = new String[] { "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
         linha = linha == null ? "" : linha;
-        if (!linha.startsWith("8;") && !linha.startsWith("9;")) {
-            String[] colunas = linha.split(";");
-            String coluna = null;
-            for (int i = 0; i < colunasAgrupamento1.length; i++) {
-                try {
-                    coluna = colunas[i];
-                    coluna = coluna == null ? "" : coluna;
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    coluna = "";
-                }
-                if (!coluna.isEmpty()) {
-                    colunasAgrupamento1[i] = coluna;
+        if (!linha.isEmpty()) {
+            linha = linha.replace(" ;", ";");
+            linha = linha.replace("; ", ";");
+            linha = linha.replace(" ; ", ";");
+            if (!linha.startsWith("8;") && !linha.startsWith("9;")) {
+                String[] colunas = linha.split(";");
+                String coluna = null;
+                for (int i = 0; i < colunasAgrupamento1.length; i++) {
+                    try {
+                        coluna = colunas[i];
+                        coluna = coluna == null ? "" : coluna;
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        coluna = "";
+                    }
+                    if (!coluna.isEmpty()) {
+                        colunasAgrupamento1[i] = coluna;
+                    }
                 }
             }
+            
         }
         return colunasAgrupamento1;
     }
     
     public static String[] obterColunasAgrupamento2(String linha) {
         // array com 11 posições a ser retornado.
-        String[] colunasAgrupamento2 = new String[] { "", "", "", "", "", "", "", "", "", "", "" };
+        String[] colunasAgrupamento2 = null;
+        int quantidadePontosVirgula = linha.replaceAll("[^;]", "").length();
+        if (quantidadePontosVirgula == 11) {
+            colunasAgrupamento2 = new String[] { "", "", "", "", "", "", "", "", "", "", "" };
+        } else if (quantidadePontosVirgula == 8) {
+            colunasAgrupamento2 = new String[] { "", "", "", "", "", "", "", "" };
+        }
         linha = linha == null ? "" : linha;
-        if (!linha.startsWith("8;") || !linha.startsWith("9;")) {
-            String[] colunas = linha.split(";");
-            String coluna = null;
-            for (int i = 0; i < colunasAgrupamento2.length; i++) {
-                try {
-                    coluna = colunas[i];
-                    coluna = coluna == null ? "" : coluna;
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    coluna = "";
-                }
-                if (!coluna.isEmpty()) {
-                    colunasAgrupamento2[i] = coluna;
+        if (!linha.isEmpty()) {
+            linha = linha.replace(" ;", ";");
+            linha = linha.replace("; ", ";");
+            linha = linha.replace(" ; ", ";");
+            if (!linha.startsWith("8;") || !linha.startsWith("9;")) {
+                String[] colunas = linha.split(";");
+                String coluna = null;
+                for (int i = 0; i < colunasAgrupamento2.length; i++) {
+                    try {
+                        coluna = colunas[i];
+                        coluna = coluna == null ? "" : coluna;
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        coluna = "";
+                    }
+                    if (!coluna.isEmpty()) {
+                        colunasAgrupamento2[i] = coluna;
+                    }
                 }
             }
         }
@@ -414,18 +407,23 @@ public class RegistroTCO {
         // array com 4 posições a ser retornado.
         String[] colunasAgrupamento3 = new String[] { "", "", "", "" };
         linha = linha == null ? "" : linha;
-        if (!linha.startsWith("8;") || !linha.startsWith("9;")) {
-            String[] colunas = linha.split(";");
-            String coluna = null;
-            for (int i = 0; i < colunasAgrupamento3.length; i++) {
-                try {
-                    coluna = colunas[i];
-                    coluna = coluna == null ? "" : coluna;
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    coluna = "";
-                }
-                if (!coluna.isEmpty()) {
-                    colunasAgrupamento3[i] = coluna;
+        if (!linha.isEmpty()) {
+            linha = linha.replace(" ;", ";");
+            linha = linha.replace("; ", ";");
+            linha = linha.replace(" ; ", ";");
+            if (!linha.startsWith("8;") || !linha.startsWith("9;")) {
+                String[] colunas = linha.split(";");
+                String coluna = null;
+                for (int i = 0; i < colunasAgrupamento3.length; i++) {
+                    try {
+                        coluna = colunas[i];
+                        coluna = coluna == null ? "" : coluna;
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        coluna = "";
+                    }
+                    if (!coluna.isEmpty()) {
+                        colunasAgrupamento3[i] = coluna;
+                    }
                 }
             }
         }
@@ -434,12 +432,27 @@ public class RegistroTCO {
     
     @Override
     public String toString() {
-        String format = "RegistroTCO(codigoAgrupamento1=%s, codigoAgrupamento2=%s, codigoAgrupamento3=%s, idReceitaFederal=%s, nome=%s, rg=%s, dataNascimento=%s, "
-                + "ctps=%s, numeroTituloEleitor=%s, nomeMae=%s, sexo=%s, endereco=%s, email=%s, oab=%s)";
-        format = String.format(
-                format, codigoAgrupamento1, codigoAgrupamento2, codigoAgrupamento3, idReceitaFederal, nome, rg, dataNascimento, ctps, numeroTituloEleitor,
-                nomeMae, sexo, endereco, email, oab);
-        return format;
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("%s(", this.getClass().getSimpleName()));
+        for (Field field : this.getClass().getDeclaredFields()) {
+            field.setAccessible(true);
+            try {
+                if (!(field.get(this) instanceof List)) {
+                    if (field.get(this) != null && field.get(this).toString().isEmpty()) {
+                        sb.append(String.format("%s=, ", field.getName()));
+                    } else {
+                        sb.append(String.format("%s=%s, ", field.getName(), field.get(this)));
+                    }
+                }
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        sb.replace(sb.lastIndexOf(", "), sb.length(), "");
+        sb.append(")");
+        return sb.toString();
     }
     
 }

@@ -10,12 +10,9 @@ import java.io.FileNotFoundException;
 public class LeitorArquivoTCO {
     
     public static void main(String[] args) throws FileNotFoundException {
-        /*
-        ArquivoTCO arquivoTCO = new ArquivoTCO("src/main/resources/167075.tco");
-        arquivoTCO.lerRegistros();
-        arquivoTCO.registros().forEach(System.out::println);
-        */
-        
         ArquivoTCO.of("src/main/resources/167075.tco").lerRegistros().registros().forEach(System.out::println);
+        ArquivoTCO arquivoTCO = ArquivoTCO.of("src/main/resources/167075.tco");
+        arquivoTCO.lerRegistros();
+        System.out.println(arquivoTCO);
     }
 }

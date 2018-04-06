@@ -1,5 +1,6 @@
 package br.gov.go.pge.tco.modelo;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,10 +15,12 @@ public class Endereco {
     private String numero;
     private String complemento;
     private String bairro;
+    private String telefone;
     private String codigoCidade;
     private String descricaoCidade;
     private String uf;
     private String cep;
+    private String email;
     
     public static final List<Endereco> LISTA_VAZIA_ENDERECOS = new ArrayList<>(0);
     
@@ -26,10 +29,12 @@ public class Endereco {
         this.numero = "";
         this.complemento = "";
         this.bairro = "";
+        this.telefone = "";
         this.codigoCidade = "";
         this.descricaoCidade = "";
         this.uf = "";
         this.cep = "";
+        this.email = "";
     }
     
     public static Endereco of() {
@@ -68,6 +73,14 @@ public class Endereco {
         this.bairro = bairro;
     }
     
+    public String getTelefone() {
+        return telefone;
+    }
+    
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+    
     public String getCodigoCidade() {
         return codigoCidade;
     }
@@ -98,6 +111,14 @@ public class Endereco {
     
     public void setCep(String cep) {
         this.cep = cep;
+    }
+    
+    public String getEmail() {
+        return email;
+    }
+    
+    public void setEmail(String email) {
+        this.email = email;
     }
     
     public String logradouro() {
@@ -133,6 +154,15 @@ public class Endereco {
     
     public Endereco bairro(String bairro) {
         setBairro(bairro);
+        return this;
+    }
+    
+    public String telefone() {
+        return getTelefone();
+    }
+    
+    public Endereco telefone(String telefone) {
+        setTelefone(telefone);
         return this;
     }
     
@@ -172,10 +202,38 @@ public class Endereco {
         return this;
     }
     
+    public String email() {
+        return getEmail();
+    }
+    
+    public Endereco email(String email) {
+        setEmail(email);
+        return this;
+    }
+    
     @Override
     public String toString() {
-        String format = "Endereco(logradouro=%s, numero=%s, complemento=%s, bairro=%s, codigoCidade=%s, descricaoCidade=%s, uf=%s, cep=%s)";
-        return String.format(format, logradouro, numero, complemento, bairro, codigoCidade, descricaoCidade, uf, cep);
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("%s(", this.getClass().getSimpleName()));
+        for (Field field : this.getClass().getDeclaredFields()) {
+            field.setAccessible(true);
+            try {
+                if (!(field.get(this) instanceof List)) {
+                    if (field.get(this) != null && field.get(this).toString().isEmpty()) {
+                        sb.append(String.format("%s=, ", field.getName()));
+                    } else {
+                        sb.append(String.format("%s=%s, ", field.getName(), field.get(this)));
+                    }
+                }
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        sb.replace(sb.lastIndexOf(", "), sb.length(), "");
+        sb.append(")");
+        return sb.toString();
     }
     
 }

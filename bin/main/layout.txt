@@ -24,3 +24,31 @@ secao 3 (OAB)
 
 8;Código da Área de Atuação do Juizado;Código da Ação;Valor da Ação;Envolve Partes com mais de 60 anos;Segredo de Justiça;Envolve pedido de urgência (tutelas, liminares, arrestos etc);Código da Delegacia;Código da Instituição;Número do TCO;Id Assunto;
 9;Quantidade de Promoventes;Quantidade de Promovidos;Quantidade de Advogados de Promoventes;Quantidade de Advogados de Promovidos;Quantidade de Comunicante;Quantidade de Testemunhas;Quantidade de Linhas;
+
+
+8;
+Código da Área de Atuação do Juizado;
+Código da Ação;
+Valor da Ação;
+Envolve Partes com mais de 60 anos;
+Segredo de Justiça;
+Envolve pedido de urgência (tutelas, liminares, arrestos etc);
+Código da Delegacia;
+Código da Instituição;
+Número do TCO;
+Id Assunto;
+
+8;
+83;
+21116;
+16,392,258.29;
+;
+;
+;
+;
+2;
+;
+1085;
+
+9;Quantidade de Promoventes;Quantidade de Promovidos;Quantidade de Advogados de Promoventes;Quantidade de Advogados de Promovidos;Quantidade de Comunicante;Quantidade de Testemunhas;Quantidade de Linhas;
+
