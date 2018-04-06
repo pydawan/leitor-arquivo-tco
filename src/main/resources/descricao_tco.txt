@@ -1,0 +1,11 @@
+0;6;
+1;CPF/CNPJ;Nome;RG;Órgao Expedidor RG;UF RG;Data de Nascimento;Número Carteira de Trabalho(CTPS);UF CTPS;Série CTPS;PIS;Titulo de Eleitor;Nome da Mãe;Sexo;
+11;Logradouro;Numero;Complemento;Bairro;Telefone;Código Cidade;Descrição Cidade;UF;CEP;E-Mail;
+12;Número OAB;Estado OAB;Complemento OAB;
+2;CPF/CNPJ;Nome;RG;Órgao Expedidor RG;UF RG;Data de Nascimento;Número Carteira de Trabalho Profissional (CTPS);UF CTPS;Série CTPS;PIS;Titulo de Eleitor;Nome da Mãe;Sexo;
+21;Logradouro;Numero;Complemento;Bairro;Telefone;Código Cidade;Descrição Cidade;UF;CEP;E-Mail;
+22;Número OAB;Estado OAB;Complemento OAB;
+4;CPF/CNPJ;Nome;RG;Órgao Expedidor RG;UF RG;Data de Nascimento;Número Carteira de Trabalho Profissional (CTPS);UF CTPS;Série CTPS;PIS;Titulo de Eleitor;Nome da Mãe;Sexo;
+41;Logradouro;Numero;Complemento;Bairro;Telefone;Código Cidade;Descrição Cidade;UF;CEP;E-Mail;
+8;Código da Área de Atuação do Juizado;Código da Ação;Valor da Ação;Envolve Partes com mais de 60 anos;Segredo de Justiça;Envolve pedido de urgência (tutelas, liminares, arrestos etc);Código da Delegacia;Código da Instituição;Número do TCO;Id Assunto;
+9;Quantidade de Promoventes;Quantidade de Promovidos;Quantidade de Advogados de Promoventes;Quantidade de Advogados de Promovidos;Quantidade de Comunicante;Quantidade de Testemunhas;Quantidade de Linhas;

@@ -1,0 +1,26 @@
+secao 1 (dados pessoais)
+1;CPF/CNPJ;Nome;RG;Órgao Expedidor RG;UF RG;Data de Nascimento;Número Carteira de Trabalho(CTPS);UF CTPS;Série CTPS;PIS;Titulo de Eleitor;Nome da Mãe;Sexo;
+
+secao 2 (endereço)
+11;Logradouro;Numero;Complemento;Bairro;Telefone;Código Cidade;Descrição Cidade;UF;CEP;E-Mail;
+
+secao 3 (OAB)
+12;Número OAB;Estado OAB;Complemento OAB;
+
+secao 1
+1;2;3;4;5;6;7;8;9;10;11;12;13;14;
+
+14 pontos e vírgula.
+
+secao 2
+1;2;3;4;5;6;7;8;9;10;11;
+
+11 pontos e vírgula.
+
+secao 3 (OAB)
+1;2;3;4;
+
+4 pontos e vírgula.
+
+8;Código da Área de Atuação do Juizado;Código da Ação;Valor da Ação;Envolve Partes com mais de 60 anos;Segredo de Justiça;Envolve pedido de urgência (tutelas, liminares, arrestos etc);Código da Delegacia;Código da Instituição;Número do TCO;Id Assunto;
+9;Quantidade de Promoventes;Quantidade de Promovidos;Quantidade de Advogados de Promoventes;Quantidade de Advogados de Promovidos;Quantidade de Comunicante;Quantidade de Testemunhas;Quantidade de Linhas;
